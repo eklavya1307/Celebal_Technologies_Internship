@@ -31,7 +31,7 @@ The objective of this assignment is to understand the architecture of Apache Spa
 
 # Technologies Used
 
-* Python 3.x
+* Python
 * Apache Spark (PySpark)
 * Jupyter Notebook
 * Java
