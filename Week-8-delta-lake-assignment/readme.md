@@ -142,7 +142,7 @@ New records were inserted successfully into the master table.
 ## Project Structure
 
 ```
-Week-8
+Week-8-delta-lake-assignment
 │
 ├── data
 │   ├── Sample_Superstore.csv
@@ -221,12 +221,4 @@ Through this assignment, the following concepts were learned:
 
   https://learn.microsoft.com/en-us/azure/databricks/delta/merge
 
----
 
-## Author
-
-**Eklavya**
-
-B.Tech Computer Science & Engineering
-
-Celebal Technologies Internship – Week 8
