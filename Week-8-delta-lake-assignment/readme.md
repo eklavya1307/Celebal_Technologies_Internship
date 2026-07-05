@@ -1,4 +1,4 @@
-# Week 8 - Delta Lake MERGE Implementation
+# Week 7 - Delta Lake MERGE Implementation
 
 ## Overview
 
