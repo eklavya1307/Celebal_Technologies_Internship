@@ -1,130 +1,292 @@
 # Secure Retail Data Lakehouse
 
-## Project Overview
+## 📌 Project Overview
 
-This project builds a simple Secure Retail Data Lakehouse using a Jupyter Notebook. It protects sensitive retail customer and payment data while still allowing business analytics through Bronze, Silver, and Gold layers.
+The **Secure Retail Data Lakehouse** is a Python-based batch data engineering project designed to securely process retail customer and transaction data before it is used for analytics.
 
-The notebook is self-contained and recreates the dataset, layer files, Gold summaries, and dashboard automatically.
+Retail platforms such as e-commerce websites and Point-of-Sale (POS) systems collect sensitive customer information including Personally Identifiable Information (PII) and Payment Card Industry (PCI) data. This project demonstrates how such sensitive data can be protected using data masking, tokenization, and feature engineering while still enabling meaningful business analytics.
 
-## Problem Statement
+The project follows the **Medallion Architecture (Bronze → Silver → Gold)** to organize data into different processing stages.
 
-Retail systems collect sensitive information such as customer names, emails, phone numbers, Aadhaar numbers, addresses, dates of birth, card numbers, and CVV values. If stored in plain text, this data can lead to identity theft, fraud, and compliance issues.
+---
 
-This project solves the problem by hard-dropping CVV, masking PII and PCI fields, tokenizing customer identifiers, and creating analytics-safe Gold summaries.
+# 🎯 Problem Statement
 
-## Objectives
+Retail organizations continuously collect customer and payment information such as:
 
-- Create Bronze, Silver, and Gold layers.
-- Remove CVV using a Hard Drop during ingestion.
-- Mask customer PII and payment PCI fields.
-- Generate SHA-256 customer tokens.
-- Calculate age and create age bands.
-- Create spend categories.
-- Generate Gold layer analytical summaries.
-- Create a dashboard image and optional HTML dashboard.
-- Validate that sensitive data is protected.
+- Customer Name
+- Email Address
+- Phone Number
+- Date of Birth
+- Shipping Address
+- Credit Card Number
+- CVV
 
-## Bronze Layer
+Storing this information in plain text introduces major security risks including:
 
-The Bronze layer stores the ingested retail dataset with minimal validation.
+- Identity Theft
+- Financial Fraud
+- Internal Data Leakage
+- Regulatory Non-Compliance (PCI-DSS, GDPR, DPDP)
 
-Important security step:
+This project focuses on securing sensitive customer information while generating analytics-ready datasets for business users.
 
-- `card_cvv` is removed immediately during Bronze ingestion.
+---
 
-Output:
+# 🎯 Objectives
 
-- `bronze/transactions_bronze.csv`
+- Build a secure batch data pipeline using Python.
+- Protect sensitive customer information.
+- Remove highly sensitive payment information.
+- Apply data masking and tokenization.
+- Perform feature engineering for analytics.
+- Generate business-ready datasets.
+- Create an analytics dashboard.
 
-## Silver Layer
+---
 
-The Silver layer contains protected transaction data.
+# 🛠 Tech Stack
 
-Security transformations:
+- Python
+- Pandas
+- NumPy
+- Matplotlib
+- Hashlib
+- Jupyter Notebook
 
-- Names are masked.
-- Emails are masked.
-- Phone numbers are masked.
-- Aadhaar numbers are masked.
-- Card numbers are masked.
-- Customer IDs are replaced with SHA-256 tokens.
-- Age, age band, spend category, and transaction month are created.
+---
 
-Output:
+# 🏗 Project Architecture
 
-- `silver/transactions_silver.csv`
+```
+                  Raw Dataset
+                       │
+                       ▼
+               Bronze Layer
+             (Raw Ingested Data)
+                       │
+                       ▼
+               Silver Layer
+       (Cleaned & Secured Data)
+                       │
+                       ▼
+                Gold Layer
+        (Business Ready Data)
+                       │
+                       ▼
+              Analytics Dashboard
+```
 
-## Gold Layer
+---
 
-The Gold layer contains analytics-ready summary tables without direct PII or PCI fields.
+# 📂 Project Structure
 
-Outputs:
+```
+Secure-Retail-Lakehouse/
+│
+├── data/
+│   └── retail_transactions.csv
+│
+├── bronze/
+│   └── transactions_bronze.csv
+│
+├── silver/
+│   └── transactions_silver.csv
+│
+├── gold/
+│   ├── customer_spend.csv
+│   ├── age_band_summary.csv
+│   ├── monthly_region_sales.csv
+│   ├── monthly_spend_trend.csv
+│   ├── payment_method_distribution.csv
+│   └── spend_category_summary.csv
+│
+├── dashboard/
+│   ├── dashboard.png
+│   └── dashboard.html
+│
+├── SecureRetailLakehouse.ipynb
+├── README.md
+└── requirements.txt
+```
 
-- `gold/customer_spend.csv`
-- `gold/spend_category_summary.csv`
-- `gold/monthly_spend_trend.csv`
-- `gold/payment_method_distribution.csv`
-- `gold/age_band_summary.csv`
-- `gold/monthly_region_sales.csv`
+---
 
-## Security Techniques
+# 🥉 Bronze Layer
 
-- Hard Drop of CVV
-- Name masking
-- Email masking
-- Phone masking
-- Aadhaar masking
-- Card masking
-- SHA-256/HMAC customer token generation
-- Age band feature engineering
-- Spend category feature engineering
+The Bronze layer stores the raw dataset immediately after ingestion.
 
-## Dashboard
+### Operations Performed
 
-The notebook creates:
+- Read raw CSV dataset
+- Basic validation
+- Store raw data without transformations
+
+No security transformations are applied in this layer.
+
+---
+
+# 🥈 Silver Layer
+
+The Silver layer performs data cleaning and security transformations.
+
+### Data Cleaning
+
+- Remove duplicate records
+- Handle missing values
+- Standardize column names
+- Convert Date of Birth into datetime format
+
+### Security Transformations
+
+- Hard Drop of CVV column
+- Mask Customer Name
+- Mask Email Address
+- Mask Phone Number
+- Mask Credit Card Number
+- Generate SHA-256 Customer Token
+
+### Feature Engineering
+
+- Calculate Customer Age
+- Create Age Band
+- Create Spend Category
+
+---
+
+# 🥇 Gold Layer
+
+The Gold layer contains business-ready analytical datasets.
+
+Generated reports include:
+
+- Customer Spend Summary
+- Spend Category Summary
+- Monthly Spend Trend
+- Monthly Region Sales
+- Payment Method Distribution
+- Age Band Summary
+
+These datasets are optimized for reporting and analytics.
+
+---
+
+# 🔒 Security Techniques Used
+
+## Hard Drop
+
+The CVV column is permanently removed immediately after data ingestion because it is highly sensitive and should never be stored.
+
+---
+
+## Data Masking
+
+Sensitive customer information is masked before analytics.
+
+### Examples
+
+| Original | Masked |
+|----------|---------|
+| Rahul Sharma | R***********a |
+| rahul@gmail.com | ra*****@gmail.com |
+| 9876543210 | XXXXXX3210 |
+| 4567123412345678 | ************5678 |
+
+---
+
+## SHA-256 Tokenization
+
+Customer IDs are converted into SHA-256 hash values to prevent exposure of original identifiers while maintaining uniqueness.
+
+---
+
+# 📊 Dashboard
+
+The dashboard provides business insights through various visualizations, including:
+
+- Top Customers by Spend
+- Spend Category Distribution
+- Monthly Spend Trend
+- Payment Method Distribution
+- Customer Spending Analysis
+
+The dashboard is available in:
 
 - `dashboard/dashboard.png`
 - `dashboard/dashboard.html`
 
-The dashboard includes:
+---
 
-- Top 10 customers by total spend
-- Spend category distribution
-- Total vs average spend by spend category
-- Top 15 customers by average spend
-- Monthly spend trend
-- Payment method distribution
+# 🚀 How to Run
 
-## Folder Structure
+### 1. Clone the repository
 
-```text
-SecureRetailLakehouse/
-|
-|-- data/
-|-- bronze/
-|-- silver/
-|-- gold/
-|-- dashboard/
-|   |-- dashboard.png
-|   `-- dashboard.html
-|-- SecureRetailLakehouse.ipynb
-|-- README.md
-`-- requirements.txt
+```bash
+git clone <repository-url>
 ```
 
-## How to Run
+### 2. Navigate to the project folder
 
-1. Install dependencies:
-
-```powershell
-python -m pip install -r requirements.txt
+```bash
+cd Secure-Retail-Lakehouse
 ```
 
-2. Open and run the notebook:
+### 3. Install dependencies
 
-```text
+```bash
+pip install -r requirements.txt
+```
+
+### 4. Open the notebook
+
+Open:
+
+```
 SecureRetailLakehouse.ipynb
 ```
 
-Run all cells from top to bottom. The notebook will recreate all required output files automatically.
+Run all cells from top to bottom.
+
+---
+
+# 📁 Output
+
+After execution, the project automatically generates:
+
+- Bronze Dataset
+- Silver Dataset
+- Gold Analytical Reports
+- Dashboard
+
+---
+
+# ⭐ Key Features
+
+- Secure Batch Data Pipeline
+- Medallion Architecture
+- PII Protection
+- PCI Protection
+- Hard Drop of CVV
+- Data Masking
+- SHA-256 Tokenization
+- Feature Engineering
+- Business Analytics Dashboard
+
+---
+
+# 🔮 Future Enhancements
+
+- Real-Time Data Ingestion using Apache Kafka
+- Delta Lake Integration
+- Data Encryption
+- Role-Based Access Control (RBAC)
+- Cloud Deployment (Azure / AWS)
+
+---
+
+# 📌 Conclusion
+
+The Secure Retail Data Lakehouse demonstrates how sensitive retail customer data can be securely processed before analytics. By implementing Hard Drop, Data Masking, SHA-256 Tokenization, and Feature Engineering within the Bronze, Silver, and Gold architecture, the project protects Personally Identifiable Information (PII) and Payment Card Industry (PCI) data while enabling business teams to perform secure and meaningful analytics.
+
+---
 
