@@ -47,13 +47,12 @@ Engineering Internship -- Week 8 Assignment**.
 
 # 🛠 Technologies Used
 
--   Python 3
--   Pandas
--   SQLite
--   SQL
--   Faker
--   Random
--   Tabulate
+- Python 3
+- Pandas
+- SQLite
+- SQL
+- CSV
+- Git & GitHub
 
 ------------------------------------------------------------------------
 
@@ -62,7 +61,7 @@ Engineering Internship -- Week 8 Assignment**.
 Install the required Python libraries:
 
 ``` bash
-pip install pandas faker tabulate
+pip install pandas 
 ```
 
 ------------------------------------------------------------------------
