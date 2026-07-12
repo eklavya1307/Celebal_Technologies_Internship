@@ -1,0 +1,42 @@
+# Data Quality Report
+
+## Customers
+- Removed 5 duplicate customers by customer_id.
+- Found 15 invalid customer email addresses: [19, 21, 26, 50, 182, 230, 248, 323, 370, 379, 460, 480, 481, 610, 612].
+- Dropped 0 customers with invalid registration_date.
+
+## Products
+- Removed 4 duplicate products by product_id.
+- Normalized 550 product names with extra spaces or mixed case.
+- Dropped 0 products with invalid cost_price.
+
+## Orders
+- Removed 6 duplicate orders by order_id.
+- Fixed 33 DD-MM-YYYY order dates.
+- Dropped 0 orders with unparseable dates.
+- Dropped 0 orders with future order_date.
+- Replaced 44 missing customer_id values with guest customer_id=0.
+- Converted 0 unknown customer_id values to guest customer_id=0.
+- Dropped 0 orders with invalid status.
+
+## Order Items
+- Removed 8 duplicate order items by item_id.
+- Dropped 0 order_items with invalid numeric values.
+- Dropped 24 order_items referencing non-existent orders.
+- Dropped 0 order_items referencing non-existent products.
+- Dropped 16 order_items with discount_percent outside 0-100.
+- Dropped 14 order_items with quantity equal to 0.
+- Dropped 0 order_items with non-positive unit_price.
+
+## SQLite Load Counts
+- customers: 651 rows
+- products: 550 rows
+- orders: 900 rows
+- order_items: 1747 rows
+
+## Relationship And Edge-Case Checks
+- orphan_order_items: 0
+- orphan_orders: 0
+- invalid_discounts: 0
+- zero_quantity_items: 0
+- future_orders: 0

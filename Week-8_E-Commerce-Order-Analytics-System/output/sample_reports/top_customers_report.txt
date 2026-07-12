@@ -1,0 +1,15 @@
+﻿Top Customers Report
++-----+----------------+---------+--------+-----------+
+| ID  | Customer       | Type    | Orders | Revenue   |
++-----+----------------+---------+--------+-----------+
+| 320 | Isha Patel     | REGULAR | 2      | 418508.93 |
+| 340 | Sana Kapoor    | PREMIUM | 3      | 370365.42 |
+| 128 | Aarav Iyer     | REGULAR | 2      | 343653.73 |
+| 352 | Nikhil Nair    | REGULAR | 2      | 318104.9  |
+| 326 | Meera Sharma   | PREMIUM | 2      | 310246.77 |
+| 127 | Neha Iyer      | PREMIUM | 3      | 310095.12 |
+| 0   | Guest Customer | REGULAR | 3      | 306502.58 |
+| 311 | Sana Rao       | VIP     | 2      | 287933.02 |
+| 45  | Rohan Nair     | PREMIUM | 1      | 286462.36 |
+| 315 | Meera Patel    | REGULAR | 3      | 250700.21 |
++-----+----------------+---------+--------+-----------+

@@ -1,0 +1,10 @@
+Edge Case Verification
+orphan_order_items: 0
+orphan_orders: 0
+invalid_discounts: 0
+zero_quantity_items: 0
+future_orders: 0
+empty query results: handled in report_cli.py with a clear message
+invalid CLI arguments: handled by argparse choices and date validation
+invalid database connection: handled in report_cli.py
+zero orders and single customer periods: handled with COALESCE, NULLIF, and empty-table messages
